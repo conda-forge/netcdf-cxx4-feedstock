@@ -5,7 +5,7 @@ Home: https://github.com/Unidata/netcdf-cxx4
 
 Package license: http://www.unidata.ucar.edu/software/netcdf/copyright.html
 
-Feedstock license: BSD
+Feedstock license: BSD 3-Clause
 
 Summary: Unidata NetCDF C++ Library
 
@@ -69,6 +69,7 @@ Terminology
 
 Current build status
 ====================
+
 Linux: [![Circle CI](https://circleci.com/gh/conda-forge/netcdf-cxx4-feedstock.svg?style=svg)](https://circleci.com/gh/conda-forge/netcdf-cxx4-feedstock)
 OSX: [![TravisCI](https://travis-ci.org/conda-forge/netcdf-cxx4-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/netcdf-cxx4-feedstock) 
 Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/netcdf-cxx4-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/netcdf-cxx4-feedstock/branch/master)
