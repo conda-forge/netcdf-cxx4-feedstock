@@ -1,22 +1,23 @@
-{% set version = "4.2.1" %}
+{% set version = "4.3.0" %}
 
 package:
   name: netcdf-cxx4
   version: {{ version }}
 
 source:
-  git_url: https://github.com/Unidata/netcdf-cxx4
-  git_tag: v{{ version }}
+  fn: netcdf-cxx4-{{ version }}.tar.gz
+  url: https://github.com/Unidata/netcdf-cxx4/archive/v{{ version }}.tar.gz
+  sha256: 25da1c97d7a01bc4cee34121c32909872edd38404589c0427fefa1301743f18f
 
 build:
-  number: 2
+  number: 0
   skip: True  # [win]
 
 requirements:
   build:
-    - libnetcdf 4.3*
+    - libnetcdf 4.4*
   run:
-    - libnetcdf 4.3*
+    - libnetcdf 4.4*
 
 test:
   commands:
