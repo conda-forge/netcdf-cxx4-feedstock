@@ -9,14 +9,14 @@ source:
   git_tag: v{{ version }}
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win]
 
 requirements:
   build:
-    - libnetcdf 4.3*
+    - libnetcdf 4.4.*
   run:
-    - libnetcdf 4.3*
+    - libnetcdf 4.4.*
 
 test:
   commands:
