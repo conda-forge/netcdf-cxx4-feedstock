@@ -17,9 +17,7 @@ build:
 
 requirements:
   build:
-    - autoconf
-    - automake
-    - libtool
+    - cmake
     - toolchain
     - libnetcdf 4.4*
   run:
