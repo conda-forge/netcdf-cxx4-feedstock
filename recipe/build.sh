@@ -32,3 +32,8 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
 make
 ctest
 make install
+
+# Workaround cmake's libnetcdf-cxx4 and configure's libnetcdf_c++4.
+for fname in $PREFIX/lib/libnetcdf-cxx4.*; do
+  ln -s $fname $PREFIX/lib/libnetcdf_c++4.${fname#*.}
+done
