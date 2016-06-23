@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [ $(uname) == Darwin ]; then
+  export CXX="${CXX} -stdlib=libc++"
+fi
+
 # Build shared library using cmake
 # works for both linux and osx, but missing ncxx4-config
 # see https://github.com/Unidata/netcdf-cxx4/issues/36
