@@ -10,7 +10,7 @@ source:
   sha256: 25da1c97d7a01bc4cee34121c32909872edd38404589c0427fefa1301743f18f
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win]
 
 requirements:
@@ -22,13 +22,12 @@ requirements:
     - libnetcdf 4.4.*
 
 test:
-  requires:
-    - python {{ environ['PY_VER'] + '*' }}  # [win]
   commands:
     #- ncxx4-config --all  # FIXME: no ncxx4-config for cmake yet.
     - test -f ${PREFIX}/lib/libnetcdf-cxx4.a  # [unix]
     - test -f ${PREFIX}/lib/libnetcdf_c++4.a  # [unix]
-    - conda inspect linkages -n _test netcdf-cxx4  # [linux]
+    - conda inspect linkages -p $PREFIX netcdf-cxx4  # [not win]
+    - conda inspect objects -p $PREFIX netcdf-cxx4  # [osx]
 
 about:
   home: https://github.com/Unidata/netcdf-cxx4
