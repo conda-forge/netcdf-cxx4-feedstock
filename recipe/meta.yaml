@@ -5,12 +5,11 @@ package:
   version: {{ version }}
 
 source:
-  fn: netcdf-cxx4-{{ version }}.tar.gz
   url: https://github.com/Unidata/netcdf-cxx4/archive/v{{ version }}.tar.gz
   sha256: 25da1c97d7a01bc4cee34121c32909872edd38404589c0427fefa1301743f18f
 
 build:
-  number: 3
+  number: 4
   skip: True  # [win]
 
 requirements:
@@ -26,8 +25,8 @@ test:
     #- ncxx4-config --all  # FIXME: no ncxx4-config for cmake yet.
     - test -f ${PREFIX}/lib/libnetcdf-cxx4.a  # [unix]
     - test -f ${PREFIX}/lib/libnetcdf_c++4.a  # [unix]
-    - conda inspect linkages -p $PREFIX netcdf-cxx4  # [not win]
-    - conda inspect objects -p $PREFIX netcdf-cxx4  # [osx]
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: https://github.com/Unidata/netcdf-cxx4
