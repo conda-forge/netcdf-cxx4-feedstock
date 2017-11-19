@@ -9,18 +9,18 @@ source:
   sha256: 25da1c97d7a01bc4cee34121c32909872edd38404589c0427fefa1301743f18f
 
 build:
-  number: 5
+  number: 6
   skip: True  # [win]
 
 requirements:
   build:
     - cmake
     - libnetcdf 4.4.*
-    - hdf5 1.8.18|1.8.18.*
+    - hdf5 1.10.1
     - toolchain
   run:
     - libnetcdf 4.4.*
-    - hdf5 1.8.18|1.8.18.*
+    - hdf5 1.10.1
 
 test:
   commands:
