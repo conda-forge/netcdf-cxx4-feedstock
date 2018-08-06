@@ -14,14 +14,16 @@ Summary: Unidata NetCDF C++ Library
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/netcdf-cxx4-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/netcdf-cxx4-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/netcdf-cxx4-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/netcdf-cxx4-feedstock)
-Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/netcdf-cxx4-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/netcdf-cxx4-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/netcdf-cxx4-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/netcdf-cxx4-feedstock)
+![Windows disabled](https://img.shields.io/badge/Windows-disabled-lightgrey.svg)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/netcdf-cxx4/badges/version.svg)](https://anaconda.org/conda-forge/netcdf-cxx4)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/netcdf-cxx4/badges/downloads.svg)](https://anaconda.org/conda-forge/netcdf-cxx4)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-netcdf--cxx4-green.svg)](https://anaconda.org/conda-forge/netcdf-cxx4) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/netcdf-cxx4.svg)](https://anaconda.org/conda-forge/netcdf-cxx4) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/netcdf-cxx4.svg)](https://anaconda.org/conda-forge/netcdf-cxx4) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/netcdf-cxx4.svg)](https://anaconda.org/conda-forge/netcdf-cxx4) |
 
 Installing netcdf-cxx4
 ======================
