@@ -9,26 +9,26 @@ source:
   sha256: 25da1c97d7a01bc4cee34121c32909872edd38404589c0427fefa1301743f18f
 
 build:
-  number: 7
+  number: 8
   skip: True  # [win]
 
 requirements:
   build:
     - cmake
-    - libnetcdf 4.5.*
-    - hdf5 1.10.1
-    - toolchain
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - libnetcdf
+    - hdf5
   run:
-    - libnetcdf >=4.5
-    - hdf5 1.10.1
+    - libnetcdf
+    - hdf5
 
 test:
   commands:
     #- ncxx4-config --all  # FIXME: no ncxx4-config for cmake yet.
-    - test -f ${PREFIX}/lib/libnetcdf-cxx4.a  # [unix]
-    - test -f ${PREFIX}/lib/libnetcdf_c++4.a  # [unix]
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+    - test -f ${PREFIX}/lib/libnetcdf-cxx4.a  # [not win]
+    - test -f ${PREFIX}/lib/libnetcdf_c++4.a  # [not win]
 
 about:
   home: https://github.com/Unidata/netcdf-cxx4
