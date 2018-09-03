@@ -41,3 +41,6 @@ make install
 for fname in $PREFIX/lib/libnetcdf-cxx4.*; do
   ln -s $fname $PREFIX/lib/libnetcdf_c++4.${fname#*.}
 done
+
+# We can remove this when we start using the new conda-build.
+find $PREFIX -name '*.la' -delete
