@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 if [ $(uname) == Darwin ]; then
   export CXX="${CXX} -stdlib=libc++"
@@ -19,7 +20,6 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
 make
 # ctest  # Run only for the shared lib build to save time.
 make install
-
 
 make clean
 
@@ -42,5 +42,3 @@ for fname in $PREFIX/lib/libnetcdf-cxx4.*; do
   ln -s $fname $PREFIX/lib/libnetcdf_c++4.${fname#*.}
 done
 
-# We can remove this when we start using the new conda-build.
-find $PREFIX -name '*.la' -delete
