@@ -1,4 +1,12 @@
 {% set version = "4.3.0" %}
+{% set build = 12 %}
+
+# recipe-lint fails if mpi is undefined
+{% set mpi = mpi or 'nompi' %}
+{% if mpi == "nompi" %}
+# prioritize nompi via build number
+{% set build = build + 100 %}
+{% endif %}
 
 package:
   name: netcdf-cxx4
@@ -9,8 +17,21 @@ source:
   sha256: 25da1c97d7a01bc4cee34121c32909872edd38404589c0427fefa1301743f18f
 
 build:
-  number: 11
+  number: {{ build }}
   skip: True  # [win]
+
+  # add build string so packages can depend on
+  # mpi or nompi variants explicitly:
+  # `netcdf-cxx4 * mpi_mpich_*` for mpich
+  # `netcdf-cxx4 * mpi_*` for any mpi
+  # `netcdf-cxx4 * nompi_*` for no mpi
+
+  {% if mpi != 'nompi' %}
+  {% set mpi_prefix = "mpi_" + mpi %}
+  {% else %}
+  {% set mpi_prefix = "nompi" %}
+  {% endif %}
+  string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
 
 requirements:
   build:
@@ -18,11 +39,18 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
-    - libnetcdf
+    # need to list hdf5 and libnetcdf twice to get version pinning from
+    # conda_build_config and build pinning from {{ mpi_prefix }}
     - hdf5
+    - hdf5 * {{ mpi_prefix }}_*
+    - libnetcdf
+    - libnetcdf * {{ mpi_prefix }}_*
+    - {{ mpi }}  # [mpi != 'nompi']
   run:
-    - libnetcdf
-    - hdf5
+    - hdf5 * {{ mpi_prefix }}_*
+    - libnetcdf * {{ mpi_prefix }}_*
+    - {{ mpi }}  # [mpi != 'nompi']
+    - openssh  # [mpi == 'openmpi']
 
 test:
   commands:
@@ -40,3 +68,4 @@ extra:
   recipe-maintainers:
     - kmuehlbauer
     - ocefpaf
+    - xylar
