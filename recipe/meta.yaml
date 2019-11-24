@@ -1,5 +1,5 @@
-{% set version = "4.3.0" %}
-{% set build = 12 %}
+{% set version = "4.3.1" %}
+{% set build = 0 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -14,7 +14,7 @@ package:
 
 source:
   url: https://github.com/Unidata/netcdf-cxx4/archive/v{{ version }}.tar.gz
-  sha256: 25da1c97d7a01bc4cee34121c32909872edd38404589c0427fefa1301743f18f
+  sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
 
 build:
   number: {{ build }}
