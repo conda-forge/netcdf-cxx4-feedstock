@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ -n "$mpi" && "$mpi" != "nompi" ]]; then
+  export CC=mpicc
+  export CXX=mpicxx
+fi
+
 if [ $(uname) == Darwin ]; then
   export CXX="${CXX} -stdlib=libc++"
 fi
