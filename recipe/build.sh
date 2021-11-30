@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
 if [[ -n "$mpi" && "$mpi" != "nompi" ]]; then
   export CC=mpicc
@@ -15,7 +17,7 @@ fi
 
 # Build static.
 mkdir build_static && cd build_static
-cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
+cmake ${CMAKE_ARGS} -D CMAKE_INSTALL_PREFIX=$PREFIX \
       -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -D BUILD_SHARED_LIBS=OFF \
       -D NCXX_ENABLE_TESTS=ON \
@@ -39,7 +41,9 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       -D ENABLE_DOXYGEN=OFF \
       $SRC_DIR
 make
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
 ctest
+fi
 make install
 
 # Workaround cmake's libnetcdf-cxx4 and configure's libnetcdf_c++4.
