@@ -1,0 +1,38 @@
+diff --git a/cxx4/Makefile.am b/cxx4/Makefile.am
+index 17c81d3..7b91af5 100644
+--- a/cxx4/Makefile.am
++++ b/cxx4/Makefile.am
+@@ -3,15 +3,13 @@
+ 
+ # This file builds the new C++-4 interface.
+ 
+-# Point pre-preprocessor to netcdf-4 directory (libsrc4).
+-LDADD = $(top_builddir)/cxx4/libnetcdf_c++4.la  -lnetcdf
+-
+ # This is our output library.
+ lib_LTLIBRARIES = libnetcdf_c++4.la
+ 
+ # For rules updating the version info, see
+ # http://www.gnu.org/s/libtool/manual/html_node/Updating-version-info.html
+ libnetcdf_c__4_la_LDFLAGS = -version-info 2:0:1 -no-undefined
++libnetcdf_c__4_la_LIBADD = -lnetcdf
+ 
+ # These headers will be installed in the users header directory.
+ include_HEADERS = netcdf ncAtt.h ncCheck.h ncDim.h ncException.h	\
+diff --git a/plugins/Makefile.am b/plugins/Makefile.am
+index bdd721c..5760b17 100644
+--- a/plugins/Makefile.am
++++ b/plugins/Makefile.am
+@@ -20,10 +20,11 @@ lib_LTLIBRARIES = libh5bzip2.la
+ 
+ libh5bzip2_la_SOURCES = ${HDF5PLUGINSRC}
+ libh5bzip2_la_LDFLAGS = -module -avoid-version -shared -export-dynamic -no-undefined
++libh5bzip2_la_LIBADD = -lhdf5
+ 
+ libmisc_la_SOURCES = H5Zmisc.c H5Zutil.c h5misc.h
+ libmisc_la_LDFLAGS = -module -avoid-version -shared -export-dynamic -no-undefined -rpath ${abs_builddir}
+-
++libmisc_la_LIBADD = -lhdf5
+ 
+ EXTRA_DIST=${PLUGINSRC} ${BZIP2SRC} ${PLUGINHDRS} ${BZIP2HDRS} \
+ 		H5Ztemplate.c H5Zmisc.c H5Zutil.c CMakeLists.txt

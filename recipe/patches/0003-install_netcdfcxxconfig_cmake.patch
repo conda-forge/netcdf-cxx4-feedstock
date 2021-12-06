@@ -1,0 +1,223 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b13374e..2f64384 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -185,7 +185,6 @@ MACRO(add_bin_test prefix F)
+   ADD_EXECUTABLE(${CUR_TEST} ${F}.cpp)
+   TARGET_LINK_LIBRARIES(${CUR_TEST}
+     netcdf-cxx4
+-    ${NETCDF_C_LIBRARY}
+     ${EXTRA_LIBS}
+     )
+   IF(MSVC)
+@@ -222,7 +221,7 @@ ENDMACRO()
+ # Build a binary used by a script, but don't make a test out of it.
+ MACRO(build_bin_test F)
+   ADD_EXECUTABLE(${F} ${F}.cpp)
+-  TARGET_LINK_LIBRARIES(${F} netcdf-cxx4 ${ALL_TLL_LIBS})
++  TARGET_LINK_LIBRARIES(${F} netcdf-cxx4)
+   IF(MSVC)
+     SET_TARGET_PROPERTIES(${F}
+       PROPERTIES LINK_FLAGS_DEBUG " /NODEFAULTLIB:MSVCRT"
+@@ -356,18 +355,18 @@ ELSE()
+ ENDIF()
+ 
+ IF (netCDF_FOUND)
+-  INCLUDE_DIRECTORIES(SYSTEM ${netCDF_INCLUDE_DIR})
+   SET(NETCDF_C_LIBRARY ${netCDF_LIBRARIES})
+   SET(NETCDF_C_INCLUDE_DIR ${netCDF_INCLUDE_DIR})
++  message(STATUS "Found netCDF CMake package: ${NETCDF_C_LIBRARY}")
+ ELSE()
+   # netCDF not properly packaged. Try to find it manually.
+   FIND_LIBRARY(NETCDF_C_LIBRARY NAMES netcdf libnetcdf)
+   IF(NOT NETCDF_C_LIBRARY)
+     MESSAGE(FATAL_ERROR "libnetcdf not found. Please reinstall and try again.")
+   ELSE()
++    FIND_PATH(NETCDF_C_INCLUDE_DIR "netcdf.h")
+     MESSAGE(STATUS "Found netcdf: ${NETCDF_C_LIBRARY}")
+-    FIND_PATH(NC_H_INCLUDE_DIR "netcdf.h")
+-    IF(NOT NC_H_INCLUDE_DIR)
++    IF(NOT NETCDF_C_INCLUDE_DIR)
+       MESSAGE(FATAL_ERROR "Directory containing netcdf.h cannot be found. Please reinstall and try again.")
+     ELSE()
+       GET_FILENAME_COMPONENT(netCDF_LIB_DIR "${NETCDF_C_LIBRARY}" REALPATH)
+@@ -376,6 +375,15 @@ ELSE()
+   ENDIF()
+ ENDIF()
+ 
++
++if (NOT TARGET netCDF::netcdf)
++  add_library(netCDF::netcdf UNKNOWN IMPORTED)
++  set_target_properties(netCDF::netcdf PROPERTIES
++    IMPORTED_LOCATION "${NETCDF_C_LIBRARY}"
++    INTERFACE_INCLUDE_DIRECTORIES "${NETCDF_C_INCLUDE_DIR}"
++  )
++endif()
++
+ ###
+ # Check to see if netcdf-c was built with parallel.
+ ###
+@@ -574,6 +582,21 @@ INSTALL(
+ # End libnetcdf-cxx.settings section.
+ #####
+ 
++#####
++# Traverse into subdirectories.
++#####
++
++##
++# Set up include directories.
++##
++# INCLUDE_DIRECTORIES(cxx4 examples)
++
++ADD_SUBDIRECTORY(cxx4)
++ADD_SUBDIRECTORY(examples)
++IF(ENABLE_DOXYGEN)
++  ADD_SUBDIRECTORY(docs)
++ENDIF()
++
+ #####
+ # Begin ncxx4-config section
+ #####
+@@ -607,34 +630,36 @@ configure_file(${CMAKE_SOURCE_DIR}/test_common.in ${CMAKE_BINARY_DIR}/test_commo
+ 
+ include(CMakePackageConfigHelpers)
+ 
++set(ConfigPackageLocation "${CMAKE_INSTALL_LIBDIR}/cmake/netCDF")
++
+ # Create export configuration
+ write_basic_package_version_file(
+-  "${CMAKE_CURRENT_BINARY_DIR}/netCDF/netCDFCxxConfigVersion.cmake"
++  "${CMAKE_CURRENT_BINARY_DIR}/netCDFCxxConfigVersion.cmake"
+   VERSION ${NCXX_VERSION}
+   COMPATIBILITY SameMajorVersion
+   )
+ 
+ install(
+-  FILES
+-  "${CMAKE_CURRENT_BINARY_DIR}/netCDF/netCDFCxxConfigVersion.cmake"
+-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/netCDFCxx
+-  COMPONENT headers
++  EXPORT netcdf-cxx4Targets
++  FILE netcdf-cxx4Targets.cmake
++  NAMESPACE netCDF::
++  DESTINATION ${ConfigPackageLocation}
+   )
+ 
+-
+-#####
+-# Traverse into subdirectories.
+-#####
+-
++configure_package_config_file(
++  "${CMAKE_CURRENT_SOURCE_DIR}/netCDFCxxConfig.cmake.in"
++  "${CMAKE_CURRENT_BINARY_DIR}/netCDFCxxConfig.cmake"
++  INSTALL_DESTINATION "${ConfigPackageLocation}"
++  )
+ 
+ 
+-##
+-# Set up include directories.
+-##
+-INCLUDE_DIRECTORIES(cxx4 examples)
+-
+-ADD_SUBDIRECTORY(cxx4)
+-ADD_SUBDIRECTORY(examples)
++install(
++  FILES
++  "${CMAKE_CURRENT_BINARY_DIR}/netCDFCxxConfig.cmake"
++  "${CMAKE_CURRENT_BINARY_DIR}/netCDFCxxConfigVersion.cmake"
++  DESTINATION "${ConfigPackageLocation}"
++  COMPONENT headers
++  )
+ 
+ IF(NC_HAS_DEF_VAR_FILTER)
+   #####
+@@ -651,8 +676,6 @@ IF(ENABLE_DOXYGEN)
+   ADD_SUBDIRECTORY(docs)
+ ENDIF()
+ 
+-
+-
+ ##
+ # CPack, CMakeInstallation.cmake file.
+ ##
+diff --git a/cxx4/CMakeLists.txt b/cxx4/CMakeLists.txt
+index b433786..f921005 100644
+--- a/cxx4/CMakeLists.txt
++++ b/cxx4/CMakeLists.txt
+@@ -1,7 +1,4 @@
+ ## This is a CMake file, part of Unidata's netcdf-cxx package.
+-
+-INCLUDE_DIRECTORIES(".")
+-
+ ###
+ # Set up headers and sources
+ ###
+@@ -27,13 +24,19 @@ IF(NCXX_ENABLE_TESTS)
+ 
+ ENDIF()
+ 
+-SET(ALL_TLL_LIBS ${NETCDF_C_LIBRARY})
+-SET(ALL_TLL_LIBS ${ALL_TLL_LIBS} ${HDF5_C_LIBRARY_hdf5})
++SET(ALL_TLL_LIBS ${HDF5_C_LIBRARY_hdf5})
+ SET(ALL_TLL_LIBS ${ALL_TLL_LIBS} ${EXTRA_DEPS} PARENT_SCOPE)
+ 
+ ADD_LIBRARY(netcdf-cxx4 ${CXX_SOURCES})
+-TARGET_INCLUDE_DIRECTORIES(netcdf-cxx4 PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+-TARGET_LINK_LIBRARIES(netcdf-cxx4 ${ALL_TLL_LIBS})
++
++TARGET_INCLUDE_DIRECTORIES(netcdf-cxx4 PUBLIC
++  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
++  $<INSTALL_INTERFACE:include>
++  )
++TARGET_LINK_LIBRARIES(netcdf-cxx4 PUBLIC netCDF::netcdf)
++TARGET_LINK_LIBRARIES(netcdf-cxx4 PUBLIC ${ALL_TLL_LIBS})
++target_include_directories(netcdf-cxx4 SYSTEM PUBLIC "${HDF5_C_INCLUDE_DIRS}")
++
+ SET_TARGET_PROPERTIES(netcdf-cxx4 PROPERTIES
+   VERSION ${NCXX_LIB_VERSION}
+   SOVERSION ${NCXX_SO_VERSION}
+@@ -49,6 +52,7 @@ INSTALL(
+   )
+ INSTALL(
+   TARGETS netcdf-cxx4
++  EXPORT netcdf-cxx4Targets
+   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+diff --git a/netCDFCxxConfig.cmake.in b/netCDFCxxConfig.cmake.in
+new file mode 100644
+index 0000000..e51606c
+--- /dev/null
++++ b/netCDFCxxConfig.cmake.in
+@@ -0,0 +1,29 @@
++# NetCDF CXX Configuration Summary
++@PACKAGE_INIT@
++
++include(CMakeFindDependencyMacro)
++
++if (@netCDF_FOUND@)
++  if(EXISTS "@netCDF_ROOT@")
++    set(netCDF_ROOT "@netCDF_ROOT@")
++  endif()
++  if(EXISTS "@netCDF_DIR@")
++    set(netCDF_DIR "@netCDF_DIR@")
++  endif()
++  find_dependency(netCDF)
++  set(NETCDF_C_LIBRARY ${netCDF_LIBRARIES})
++  set(NETCDF_C_INCLUDE_DIR ${netCDF_INCLUDE_DIR})
++else()
++  set(NETCDF_C_LIBRARY "@NETCDF_C_LIBRARY@")
++  set(NETCDF_C_INCLUDE_DIR "@NETCDF_C_INCLUDE_DIR@")
++endif()
++
++if (NOT TARGET netCDF::netcdf)
++  add_library(netCDF::netcdf UNKNOWN IMPORTED)
++  set_target_properties(netCDF::netcdf PROPERTIES
++    IMPORTED_LOCATION "${NETCDF_C_LIBRARY}"
++    INTERFACE_INCLUDE_DIRECTORIES "${NETCDF_C_INCLUDE_DIR}"
++  )
++endif()
++
++include("${CMAKE_CURRENT_LIST_DIR}/netcdf-cxx4Targets.cmake")

@@ -1,5 +1,5 @@
 {% set version = "4.3.1" %}
-{% set build = 4 %}
+{% set build = 5 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -15,6 +15,19 @@ package:
 source:
   url: https://github.com/Unidata/netcdf-cxx4/archive/v{{ version }}.tar.gz
   sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
+  patches:
+    # 2021/12/05 hmaarrfk
+    # Patches were taken by looking at the commit history since the last
+    # release in 2019
+    # The following 4 patches should be removed once version 4.3.2 is released
+    # Patches were taken in order, up to the point where the usage of
+    # CHECK_LIBRARY_EXISTS was fixed on linux.
+    # For some reason, hdf5 had a hard time getting found on OSX, so
+    # we decided to manually specify the location of HDF5
+    - patches/0001-remove_debug_flag.patch
+    - patches/0002-specify_libadd.patch
+    - patches/0003-install_netcdfcxxconfig_cmake.patch
+    - patches/0004-fix_CHECK_LIBRARY_EXISTS.patch
 
 build:
   number: {{ build }}
@@ -35,9 +48,10 @@ build:
 
 requirements:
   build:
-    - cmake
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - cmake
+    - make      # [unix]
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from
     # conda_build_config and build pinning from {{ mpi_prefix }}
@@ -54,9 +68,12 @@ requirements:
 
 test:
   commands:
-    #- ncxx4-config --all  # FIXME: no ncxx4-config for cmake yet.
-    - test -f ${PREFIX}/lib/libnetcdf-cxx4.a  # [not win]
-    - test -f ${PREFIX}/lib/libnetcdf_c++4.a  # [not win]
+    - ncxx4-config --all
+    - test -f ${PREFIX}/lib/libnetcdf-cxx4${SHLIB_EXT}  # [unix]
+    - test -f ${PREFIX}/lib/libnetcdf_c++4${SHLIB_EXT}  # [unix]
+     # No static libs should be installed by default on conda-forge
+    - test ! -f ${PREFIX}/lib/libnetcdf-cxx4.a          # [unix]
+    - test ! -f ${PREFIX}/lib/libnetcdf_c++4.a          # [unix]
 
 about:
   home: https://github.com/Unidata/netcdf-cxx4
@@ -69,3 +86,4 @@ extra:
     - kmuehlbauer
     - ocefpaf
     - xylar
+    - hmaarrfk
