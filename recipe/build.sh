@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
 set -ex
 if [[ -n "$mpi" && "$mpi" != "nompi" ]]; then
@@ -68,7 +70,9 @@ cmake \
     ${CMAKE_HDF5_FLAGS} \
     ${SRC_DIR}
 make -j${CPU_COUNT}
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
 ctest
+fi
 make install
 
 # Workaround cmake's libnetcdf-cxx4 and configure's libnetcdf_c++4.
