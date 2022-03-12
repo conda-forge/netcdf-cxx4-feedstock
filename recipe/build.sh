@@ -6,6 +6,7 @@ set -ex
 if [[ -n "$mpi" && "$mpi" != "nompi" ]]; then
   export CC=mpicc
   export CXX=mpicxx
+  export OPAL_PREFIX=${PREFIX}
 fi
 # This is supposed to have been done in the autoreconf, but i'm terrible at that
 export LDFLAGS="${LDFLAGS} -lhdf5"
