@@ -44,7 +44,6 @@ cmake \
     -DNCXX_ENABLE_TESTS=ON \
     -DENABLE_DOXYGEN=OFF \
     ${CMAKE_HDF5_FLAGS} \
-    --debug-output \
     ${SRC_DIR}
     
 make -j${CPU_COUNT}
@@ -71,7 +70,6 @@ cmake \
     -DNCXX_ENABLE_TESTS=ON \
     -DENABLE_DOXYGEN=OFF \
     ${CMAKE_HDF5_FLAGS} \
-    --debug-output \
     ${SRC_DIR}
 make -j${CPU_COUNT}
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
