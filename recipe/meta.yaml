@@ -1,5 +1,5 @@
 {% set version = "4.3.1" %}
-{% set build = 5 %}
+{% set build = 6 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -48,10 +48,12 @@ build:
 
 requirements:
   build:
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
     - make      # [unix]
+    - {{ mpi }}  # [build_platform != target_platform and mpi == "openmpi"]
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from
     # conda_build_config and build pinning from {{ mpi_prefix }}

@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
 set -ex
 if [[ -n "$mpi" && "$mpi" != "nompi" ]]; then
   export CC=mpicc
   export CXX=mpicxx
+  export OPAL_PREFIX=${PREFIX}
 fi
 # This is supposed to have been done in the autoreconf, but i'm terrible at that
 export LDFLAGS="${LDFLAGS} -lhdf5"
@@ -42,6 +45,7 @@ cmake \
     -DENABLE_DOXYGEN=OFF \
     ${CMAKE_HDF5_FLAGS} \
     ${SRC_DIR}
+    
 make -j${CPU_COUNT}
 # ctest  # Run only for the shared lib build to save time.
 make install
@@ -68,7 +72,9 @@ cmake \
     ${CMAKE_HDF5_FLAGS} \
     ${SRC_DIR}
 make -j${CPU_COUNT}
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
 ctest
+fi
 make install
 
 # Workaround cmake's libnetcdf-cxx4 and configure's libnetcdf_c++4.
