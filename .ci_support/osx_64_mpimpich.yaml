@@ -13,9 +13,9 @@ cxx_compiler:
 cxx_compiler_version:
 - '15'
 hdf5:
-- 1.12.2
+- 1.14.0
 libnetcdf:
-- 4.8.1
+- 4.9.1
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
