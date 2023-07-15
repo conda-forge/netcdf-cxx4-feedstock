@@ -1,11 +1,11 @@
-About netcdf-cxx4
-=================
+About netcdf-cxx4-feedstock
+===========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/netcdf-cxx4-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/Unidata/netcdf-cxx4
 
 Package license: http://www.unidata.ucar.edu/software/netcdf/copyright.html
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/netcdf-cxx4-feedstock/blob/main/LICENSE.txt)
 
 Summary: Unidata NetCDF C++ Library
 
@@ -30,63 +30,63 @@ Current build status
               <td>linux_64_mpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=linux&configuration=linux_64_mpimpich" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=linux&configuration=linux_64_mpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=linux&configuration=linux_64_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_mpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx_64_mpimpich" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx_64_mpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx_64_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_arm64_mpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_mpimpich" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_arm64_mpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_mpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_mpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_arm64_mpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr>
