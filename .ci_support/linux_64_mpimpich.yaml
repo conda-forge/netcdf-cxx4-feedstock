@@ -15,9 +15,9 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 hdf5:
-- 1.14.0
+- 1.14.3
 libnetcdf:
-- 4.9.1
+- 4.9.2
 mpi:
 - mpich
 mpich:
