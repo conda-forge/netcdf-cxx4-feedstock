@@ -3,7 +3,7 @@ MACOSX_DEPLOYMENT_TARGET:
 c_compiler:
 - clang
 c_compiler_version:
-- '13'
+- '16'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -11,11 +11,11 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '13'
+- '16'
 hdf5:
-- 1.12.2
+- 1.14.3
 libnetcdf:
-- 4.8.1
+- 4.9.2
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
@@ -29,3 +29,5 @@ target_platform:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+zlib:
+- '1.2'

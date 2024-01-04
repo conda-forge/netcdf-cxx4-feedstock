@@ -1,5 +1,5 @@
 {% set version = "4.3.1" %}
-{% set build = 7 %}
+{% set build = 8 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -62,6 +62,7 @@ requirements:
     - libnetcdf
     - libnetcdf * {{ mpi_prefix }}_*
     - {{ mpi }}  # [mpi != 'nompi']
+    - zlib
   run:
     - hdf5 * {{ mpi_prefix }}_*
     - libnetcdf * {{ mpi_prefix }}_*
