@@ -81,7 +81,7 @@ test:
 
 about:
   home: https://github.com/Unidata/netcdf-cxx4
-  license: http://www.unidata.ucar.edu/software/netcdf/copyright.html
+  license: NetCDF
   license_file: COPYRIGHT
   summary: Unidata NetCDF C++ Library
 
