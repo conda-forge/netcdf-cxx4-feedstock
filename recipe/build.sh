@@ -62,6 +62,7 @@ cd ..
 mkdir build_shared && cd build_shared
 cmake \
     ${CMAKE_ARGS} \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_C_COMPILER=${CC} \
     -DCMAKE_CXX_COMPILER=${CXX} \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
