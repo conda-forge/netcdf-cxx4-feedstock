@@ -19,13 +19,13 @@ cxx_compiler:
 cxx_compiler_version:
 - '18'
 hdf5:
-- 1.14.4
+- 1.14.6
 libnetcdf:
 - 4.9.2
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
-- openmpi
+- mpich
 mpich:
 - '4'
 openmpi:

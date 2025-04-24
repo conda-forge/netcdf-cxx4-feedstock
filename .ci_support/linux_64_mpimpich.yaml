@@ -19,11 +19,11 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 hdf5:
-- 1.14.4
+- 1.14.6
 libnetcdf:
 - 4.9.2
 mpi:
-- openmpi
+- mpich
 mpich:
 - '4'
 openmpi:
