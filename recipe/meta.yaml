@@ -71,7 +71,7 @@ requirements:
 
 test:
   commands:
-    - ncxx4-config --all  # [not win]
+    - ncxx4-config --all
     - test -f ${PREFIX}/lib/libnetcdf-cxx4${SHLIB_EXT}  # [not win]
     - test -f ${PREFIX}/lib/libnetcdf_c++4${SHLIB_EXT}  # [not win]
      # No static libs should be installed by default on conda-forge
