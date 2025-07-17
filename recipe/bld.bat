@@ -11,10 +11,6 @@ set "BUILD_DIR=%SRC_DIR%\build_shared"
 mkdir "%BUILD_DIR%"
 cd "%BUILD_DIR%"
 
-dir %LIBRARY_PREFIX%\include
-
-dir %LIBRARY_PREFIX%\lib
-
 set "CFLAGS=%CFLAGS% /I%LIBRARY_PREFIX%\include"
 set "CXXFLAGS=%CXXFLAGS% /I%LIBRARY_PREFIX%\include"
 set "LDFLAGS=%LDFLAGS% %LIBRARY_PREFIX%\lib\hdf5.lib %LIBRARY_PREFIX%\lib\hdf5_hl.lib"
@@ -37,4 +33,5 @@ cmake %CMAKE_ARGS% ^
 cmake --build . --config Release --target install
 
 REM Create symbolic link if necessary (Windows equivalent, copying instead of linking)
-copy "%LIBRARY_LIB%\netcdf-cxx4.lib" "%LIBRARY_LIB%\netcdf_c++4.lib"
+copy "%LIBRARY_PREFIX%\lib\netcdf-cxx4.lib" "%LIBRARY_PREFIX%\lib\netcdf_c++4.lib"
+copy "%LIBRARY_PREFIX%\bin\netcdf-cxx4.dll" "%LIBRARY_PREFIX%\lib\netcdf_c++4.dll"
