@@ -34,4 +34,4 @@ cmake --build . --config Release --target install
 
 REM Create symbolic link if necessary (Windows equivalent, copying instead of linking)
 copy "%LIBRARY_PREFIX%\lib\netcdf-cxx4.lib" "%LIBRARY_PREFIX%\lib\netcdf_c++4.lib"
-copy "%LIBRARY_PREFIX%\bin\netcdf-cxx4.dll" "%LIBRARY_PREFIX%\lib\netcdf_c++4.dll"
+copy "%LIBRARY_PREFIX%\bin\netcdf-cxx4.dll" "%LIBRARY_PREFIX%\bin\netcdf_c++4.dll"
