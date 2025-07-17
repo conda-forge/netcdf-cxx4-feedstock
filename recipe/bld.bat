@@ -21,6 +21,9 @@ cmake %CMAKE_ARGS% ^
     -DNCXX_ENABLE_TESTS=OFF ^
     -DENABLE_DOXYGEN=OFF ^
     -DHDF5_ROOT=%LIBRARY_PREFIX% ^
+    -DHDF5_INCLUDE_DIR=%LIBRARY_PREFIX%\include ^
+    -DHDF5_LIBRARY=%LIBRARY_PREFIX%\lib\hdf5.lib ^
+    -DHDF5_HL_LIBRARY=%LIBRARY_PREFIX%\lib\hdf5_hl.lib ^
     "%SRC_DIR%"
 
 cmake --build . --config Release --target install
