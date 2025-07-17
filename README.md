@@ -90,24 +90,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_mpimpich</td>
+              <td>win_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=win&configuration=win%20win_64_mpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_mpinompi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=win&configuration=win%20win_64_mpinompi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_mpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=4835&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=win&configuration=win%20win_64_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/netcdf-cxx4-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
                 </a>
               </td>
             </tr>
