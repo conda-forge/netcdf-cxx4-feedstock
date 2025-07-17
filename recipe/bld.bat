@@ -21,12 +21,16 @@ cmake %CMAKE_ARGS% ^
     -DNCXX_ENABLE_TESTS=OFF ^
     -DENABLE_DOXYGEN=OFF ^
     -DHDF5_ROOT=%LIBRARY_PREFIX% ^
-    -DHDF5_INCLUDE_DIRS=%LIBRARY_PREFIX%\include ^
-    -DHDF5_LIBRARIES=%LIBRARY_PREFIX%\lib\hdf5.lib ^
-    -DHDF5_HL_LIBRARIES=%LIBRARY_PREFIX%\lib\hdf5_hl.lib ^
+    -DHDF5_INCLUDE_DIRS=%LIBRARY_INC% ^
+    -DHDF5_C_INCLUDE_DIR=%LIBRARY_INC% ^
+    -DHDF5_C_INCLUDE_DIRS=%LIBRARY_INC% ^
+    -DHDF5_LIBRARIES=%LIBRARY_LIB%\hdf5.lib ^
+    -DHDF5_C_LIBRARIES=%LIBRARY_LIB%\hdf5.lib ^
+    -DHDF5_HL_LIBRARIES="%LIBRARY_LIB%\hdf5_hl.lib;%LIBRARY_LIB%\hdf5.lib" ^
+    -DHDF5_C_HL_LIBRARIES="%LIBRARY_LIB%\hdf5_hl.lib;%LIBRARY_LIB%\hdf5.lib" ^
     "%SRC_DIR%"
 
 cmake --build . --config Release --target install
 
 REM Create symbolic link if necessary (Windows equivalent, copying instead of linking)
-copy "%LIBRARY_PREFIX%\lib\netcdf-cxx4.lib" "%LIBRARY_PREFIX%\lib\netcdf_c++4.lib"
+copy "%LIBRARY_LIB%\netcdf-cxx4.lib" "%LIBRARY_LIB%\netcdf_c++4.lib"
