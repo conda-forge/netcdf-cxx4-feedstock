@@ -78,9 +78,9 @@ test:
     - test ! -f ${PREFIX}/lib/libnetcdf-cxx4.a          # [not win]
     - test ! -f ${PREFIX}/lib/libnetcdf_c++4.a          # [not win]
     - if not exist "%PREFIX%\\Library\\lib\\netcdf-cxx4.lib" exit 1  # [win]
-    - if not exist "%PREFIX%\\Library\\lib\\netcdf-c++4.lib" exit 1  # [win]
+    - if not exist "%PREFIX%\\Library\\lib\\netcdf_c++4.lib" exit 1  # [win]
     - if not exist "%PREFIX%\\Library\\bin\\netcdf-cxx4.dll" exit 1  # [win]
-    - if not exist "%PREFIX%\\Library\\bin\\netcdf-c++4.dll" exit 1  # [win]
+    - if not exist "%PREFIX%\\Library\\bin\\netcdf_c++4.dll" exit 1  # [win]
 
 about:
   home: https://github.com/Unidata/netcdf-cxx4
