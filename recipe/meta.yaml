@@ -1,11 +1,33 @@
 {% set version = "4.3.1" %}
-{% set build = 13 %}
+{% set build = 14 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
 {% if mpi == "nompi" %}
 # prioritize nompi via build number
 {% set build = build + 100 %}
+{% endif %}
+
+# add build string so packages can depend on
+# mpi or nompi variants explicitly:
+# `netcdf-cxx4 * mpi_mpich_*` for mpich
+# `netcdf-cxx4 * mpi_*` for any mpi
+# `netcdf-cxx4 * nompi_*` for no mpi
+
+{% if mpi != 'nompi' %}
+{% set mpi_prefix = "mpi_" + mpi %}
+{% else %}
+{% set mpi_prefix = "nompi" %}
+{% endif %}
+
+# mpi builds require the right mpi
+# non-mpi builds *do not* appear to require non-mpi builds
+# at least not always
+
+{% if mpi != 'nompi' %}
+{% set build_pin = mpi_prefix + '_*' %}
+{% else %}
+{% set build_pin = '' %}
 {% endif %}
 
 package:
@@ -31,19 +53,9 @@ source:
 
 build:
   number: {{ build }}
-
-  # add build string so packages can depend on
-  # mpi or nompi variants explicitly:
-  # `netcdf-cxx4 * mpi_mpich_*` for mpich
-  # `netcdf-cxx4 * mpi_*` for any mpi
-  # `netcdf-cxx4 * nompi_*` for no mpi
-
-  {% if mpi != 'nompi' %}
-  {% set mpi_prefix = "mpi_" + mpi %}
-  {% else %}
-  {% set mpi_prefix = "nompi" %}
-  {% endif %}
   string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
+  run_exports:
+    - {{ pin_subpackage('netcdf-cxx4', max_pin='x.x.x') }} {{ build_pin }}
 
 requirements:
   build:
