@@ -11,7 +11,7 @@ cxx_compiler:
 hdf5:
 - 1.14.6
 libnetcdf:
-- 4.9.2
+- 4.9.3
 mpi:
 - nompi
 mpich:
