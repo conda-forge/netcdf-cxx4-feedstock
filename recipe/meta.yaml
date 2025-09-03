@@ -50,7 +50,8 @@ source:
     - patches/0002-specify_libadd.patch
     - patches/0003-install_netcdfcxxconfig_cmake.patch
     - patches/0004-fix_CHECK_LIBRARY_EXISTS.patch
-    - patches/0005-Use_HAVE_NC_SET_LOG_LEVEL.patch
+    - patches/0005-normalize-eols-examples.patch
+    - patches/0006-Use_HAVE_NC_SET_LOG_LEVEL.patch
 
 build:
   number: {{ build }}

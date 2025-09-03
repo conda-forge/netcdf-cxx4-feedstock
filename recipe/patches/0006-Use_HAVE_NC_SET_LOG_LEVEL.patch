@@ -1,0 +1,36 @@
+diff -ruN netcdf-cxx4-4.3.1/cxx4/test_filter.cpp netcdf-cxx4-4.3.1-patch/cxx4/test_filter.cpp
+--- netcdf-cxx4-4.3.1/cxx4/test_filter.cpp	2025-09-03 18:51:21.176410870 +0200
++++ netcdf-cxx4-4.3.1-patch/cxx4/test_filter.cpp	2025-09-03 18:52:26.021231629 +0200
+@@ -30,7 +30,9 @@
+   try
+     {
+       NcFile test("pres_temp_plugin_4D.nc", NcFile::replace);
++#ifdef HAVE_NC_SET_LOG_LEVEL
+       nc_set_log_level(5);
++#endif
+       // Define the dimensions. NetCDF will hand back an ncDim object for
+       // each.
+       NcDim latDim = test.addDim(LAT_NAME, NLAT);
+diff -ruN netcdf-cxx4-4.3.1/examples/pres_temp_4D_plugin_wr.cpp netcdf-cxx4-4.3.1-patch/examples/pres_temp_4D_plugin_wr.cpp
+--- netcdf-cxx4-4.3.1/examples/pres_temp_4D_plugin_wr.cpp	2025-09-03 18:51:21.177824315 +0200
++++ netcdf-cxx4-4.3.1-patch/examples/pres_temp_4D_plugin_wr.cpp	2025-09-03 18:52:04.746128666 +0200
+@@ -71,7 +71,9 @@
+
+ int main()
+ {
++#ifdef HAVE_NC_SET_LOG_LEVEL
+   nc_set_log_level(5);
++#endif
+   // We will write latitude and longitude fields.
+    float lats[NLAT],lons[NLON];
+
+@@ -103,7 +105,9 @@
+
+       // Create the file.
+       NcFile test(FILE_NAME, NcFile::replace);
++#ifdef HAVE_NC_SET_LOG_LEVEL
+       nc_set_log_level(5);
++#endif
+       // Define the dimensions. NetCDF will hand back an ncDim object for
+       // each.
+       NcDim lvlDim = test.addDim(LVL_NAME, NLVL);
