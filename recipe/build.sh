@@ -75,7 +75,8 @@ cmake \
     ${SRC_DIR}
 make -j${CPU_COUNT}
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
-ctest --output-on-failure
+  HDF5_PLUGIN_PATH="${PWD}/plugins${HDF5_PLUGIN_PATH:+:${HDF5_PLUGIN_PATH}}" \
+    ctest --output-on-failure
 fi
 make install
 
