@@ -46,7 +46,7 @@ cmake \
     -DENABLE_DOXYGEN=OFF \
     ${CMAKE_HDF5_FLAGS} \
     ${SRC_DIR}
-    
+
 make -j${CPU_COUNT}
 # ctest  # Run only for the shared lib build to save time.
 make install
@@ -75,7 +75,7 @@ cmake \
     ${SRC_DIR}
 make -j${CPU_COUNT}
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
-ctest
+ctest --output-on-failure
 fi
 make install
 
