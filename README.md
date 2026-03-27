@@ -9,6 +9,8 @@ Package license: NetCDF
 
 Summary: Unidata NetCDF C++ Library
 
+Development: https://github.com/Unidata/netcdf-cxx4
+
 Current build status
 ====================
 
