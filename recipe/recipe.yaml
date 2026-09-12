@@ -3,7 +3,7 @@ schema_version: 1
 context:
   name: netcdf-cxx4
   version: "4.3.1"
-  build: 23
+  build: 24
   # recipe-lint fails if mpi is undefined
   mpi: ${{ mpi or "nompi" }}
   # prioritize nompi via build number
@@ -80,6 +80,11 @@ tests:
       - if: not win
         then:
           - ncxx4-config --all
+          # ncxx4-config must report the real libdir, not ${PREFIX}${PREFIX}/lib
+          # https://github.com/conda-forge/netcdf-cxx4-feedstock/issues/69
+          - test "$(ncxx4-config --libdir)" = "${PREFIX}/lib"
+          - test "$(ncxx4-config --includedir)" = "${PREFIX}/include"
+          - test "$(ncxx4-config --prefix)" = "${PREFIX}"
           - test -f ${PREFIX}/lib/libnetcdf-cxx4${SHLIB_EXT}
           - test -f ${PREFIX}/lib/libnetcdf_c++4${SHLIB_EXT}
           # No static libs should be installed by default on conda-forge.

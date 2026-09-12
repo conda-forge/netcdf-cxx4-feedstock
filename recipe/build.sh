@@ -33,13 +33,20 @@ fi
 
 # Build static.
 mkdir build_static && cd build_static
+# CMAKE_INSTALL_LIBDIR must be set, but must stay RELATIVE:
+#  * ncxx4-config.cmake.in composes its paths as
+#    "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@", so an absolute value
+#    makes the installed ncxx4-config report ${PREFIX}${PREFIX}/lib
+#    (conda-forge/netcdf-cxx4-feedstock#69).
+#  * it cannot simply be left unset, since GNUInstallDirs defaults to
+#    "lib64" on 64-bit non-Debian Linux, which is what the build image is.
 cmake \
     ${CMAKE_ARGS} \
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_C_COMPILER=${CC} \
     -DCMAKE_CXX_COMPILER="${CXX}" \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
-    -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+    -DCMAKE_INSTALL_LIBDIR:PATH=lib \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_SHARED_LIBS=OFF \
     -DNCXX_ENABLE_TESTS=ON \
@@ -60,13 +67,14 @@ cd ..
 
 # Build shared.
 mkdir build_shared && cd build_shared
+# CMAKE_INSTALL_LIBDIR: see the note on the static build above.
 cmake \
     ${CMAKE_ARGS} \
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_C_COMPILER=${CC} \
     -DCMAKE_CXX_COMPILER=${CXX} \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
-    -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+    -DCMAKE_INSTALL_LIBDIR:PATH=lib \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_SHARED_LIBS=ON \
     -DNCXX_ENABLE_TESTS=ON \
