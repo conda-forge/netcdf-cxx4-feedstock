@@ -95,6 +95,14 @@ tests:
           - if not exist %PREFIX%\Library\lib\netcdf_c++4.lib exit 1
           - if not exist %PREFIX%\Library\bin\netcdf-cxx4.dll exit 1
           - if not exist %PREFIX%\Library\bin\netcdf_c++4.dll exit 1
+  - script:
+      - python run_test.py
+    requirements:
+      run:
+        - python
+    files:
+      recipe:
+        - run_test.py
 
 about:
   homepage: https://github.com/Unidata/netcdf-cxx4
