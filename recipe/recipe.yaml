@@ -3,15 +3,9 @@ schema_version: 1
 context:
   name: netcdf-cxx4
   version: "4.3.2"
-  build: 0
+  build_number: 0
   # recipe-lint fails if mpi is undefined
   mpi: ${{ mpi or "nompi" }}
-  # prioritize nompi via build number
-  build_number: 0
-  # add build string so packages can depend on mpi or nompi variants explicitly:
-  # `netcdf-cxx4 * mpi_mpich_*` for mpich
-  # `netcdf-cxx4 * mpi_*` for any mpi
-  # `netcdf-cxx4 * nompi_*` for no mpi
   mpi_prefix: ${{ "mpi_" + mpi if mpi != "nompi" else "nompi" }}
 
 package:
@@ -38,8 +32,17 @@ source:
     - patches/0006-Use_HAVE_NC_SET_LOG_LEVEL.patch
 
 build:
-  number: ${{ build_number }}
+  # prioritize nompi via build number
+  number: ${{ build_number | int + 100 if mpi == "nompi" else build_number }}
+  # add build string so packages can depend on mpi or nompi variants explicitly:
+  # `netcdf-cxx4 * mpi_mpich_*` for mpich
+  # `netcdf-cxx4 * mpi_*` for any mpi
+  # `netcdf-cxx4 * nompi_*` for no mpi
+  # build_number here is the resolved build.number, so the offset is already applied
   string: ${{ mpi_prefix }}_h${{ hash }}_${{ build_number }}
+  variant:
+    # prefer 'nompi' over other mpi variants
+    down_prioritize_variant: ${{ 0 if mpi == "nompi" else 1 }}
 
 requirements:
   build:
