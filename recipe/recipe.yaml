@@ -2,12 +2,12 @@ schema_version: 1
 
 context:
   name: netcdf-cxx4
-  version: "4.3.1"
-  build: 25
+  version: "4.3.2"
+  build: 0
   # recipe-lint fails if mpi is undefined
   mpi: ${{ mpi or "nompi" }}
   # prioritize nompi via build number
-  build_number: ${{ build + 100 if mpi == "nompi" else build }}
+  build_number: 0
   # add build string so packages can depend on mpi or nompi variants explicitly:
   # `netcdf-cxx4 * mpi_mpich_*` for mpich
   # `netcdf-cxx4 * mpi_*` for any mpi
@@ -20,7 +20,7 @@ package:
 
 source:
   url: https://github.com/Unidata/netcdf-cxx4/archive/v${{ version }}.tar.gz
-  sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
+  sha256: f7afc1a69b5d82b3892a2d4cf2823767657a5e51a8c1170bf14b0fc6648cf2b8
   patches:
     # 2021/12/05 hmaarrfk
     # Patches were taken by looking at the commit history since the last
