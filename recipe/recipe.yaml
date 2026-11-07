@@ -15,21 +15,6 @@ package:
 source:
   url: https://github.com/Unidata/netcdf-cxx4/archive/v${{ version }}.tar.gz
   sha256: f7afc1a69b5d82b3892a2d4cf2823767657a5e51a8c1170bf14b0fc6648cf2b8
-  patches:
-    # 2021/12/05 hmaarrfk
-    # Patches were taken by looking at the commit history since the last
-    # release in 2019. The following 4 patches should be removed once
-    # version 4.3.2 is released.
-    # Patches were taken in order, up to the point where the usage of
-    # CHECK_LIBRARY_EXISTS was fixed on linux.
-    # For some reason, hdf5 had a hard time getting found on OSX, so
-    # we decided to manually specify the location of HDF5.
-    - patches/0001-remove_debug_flag.patch
-    - patches/0002-specify_libadd.patch
-    - patches/0003-install_netcdfcxxconfig_cmake.patch
-    - patches/0004-fix_CHECK_LIBRARY_EXISTS.patch
-    - patches/0005-normalize-eols-examples.patch
-    - patches/0006-Use_HAVE_NC_SET_LOG_LEVEL.patch
 
 build:
   # prioritize nompi via build number
@@ -59,10 +44,10 @@ requirements:
   host:
     - if: mpi != "nompi"
       then: ${{ mpi }}
-    - libnetcdf
-    - libnetcdf * ${{ mpi_prefix }}_*
     # need to list hdf5 and libnetcdf twice to get version pinning from
     # conda_build_config and build pinning from ${{ mpi_prefix }}
+    - libnetcdf
+    - libnetcdf * ${{ mpi_prefix }}_*
     - hdf5
     - hdf5 * ${{ mpi_prefix }}_*
     - zlib
