@@ -54,22 +54,22 @@ requirements:
     - if: mpi == "openmpi" and build_platform != target_platform
       then: ${{ mpi }}
   host:
+    - if: mpi != "nompi"
+      then: ${{ mpi }}
+    - libnetcdf
+    - libnetcdf * ${{ mpi_prefix }}_*
     # need to list hdf5 and libnetcdf twice to get version pinning from
     # conda_build_config and build pinning from ${{ mpi_prefix }}
     - hdf5
     - hdf5 * ${{ mpi_prefix }}_*
-    - libnetcdf
-    - libnetcdf * ${{ mpi_prefix }}_*
     - zlib
-    - if: mpi != "nompi"
-      then: ${{ mpi }}
   run:
-    - hdf5 * ${{ mpi_prefix }}_*
-    - libnetcdf * ${{ mpi_prefix }}_*
     - if: mpi != "nompi"
       then: ${{ mpi }}
     - if: mpi == "openmpi"
       then: openssh
+    - hdf5 * ${{ mpi_prefix }}_*
+    - libnetcdf * ${{ mpi_prefix }}_*
   run_exports:
     - ${{ pin_subpackage(name, upper_bound="x.x") }}
     - if: mpi != "nompi"
