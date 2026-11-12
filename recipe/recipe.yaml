@@ -3,7 +3,7 @@ schema_version: 1
 context:
   name: netcdf-cxx4
   version: "4.3.2"
-  build_number: 0
+  build_number: 1
   # recipe-lint fails if mpi is undefined
   mpi: ${{ mpi or "nompi" }}
   mpi_prefix: ${{ "mpi_" + mpi if mpi != "nompi" else "nompi" }}
@@ -59,7 +59,7 @@ requirements:
     - hdf5 * ${{ mpi_prefix }}_*
     - libnetcdf * ${{ mpi_prefix }}_*
   run_exports:
-    - ${{ pin_subpackage(name, upper_bound="x.x") }}
+    - ${{ pin_subpackage(name, upper_bound="x.x.x") }}
     - if: mpi != "nompi"
       then: ${{ name }} * ${{ mpi_prefix }}_*
 
